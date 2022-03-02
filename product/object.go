@@ -2,8 +2,9 @@ package product
 
 type product struct{
 	id			int
+	sku			string
 	name 		string
-	price 		float32
+	price 		float64
 	description	string
 	color		string
 	createdAt	string
@@ -12,17 +13,21 @@ type product struct{
 	image		string
 }
 
-func Create() product{
+func New() product{
 	item := new(product)
 	return *item
 }
 
-func (item *product) SetId(id int){
-	item.id = id
-}
-
 func (item *product) GetId() int{
 	return item.id
+}
+
+func (item *product) SetSku(sku string){
+	item.sku = sku
+}
+
+func (item *product) GetSku() string{
+	return item.sku
 }
 
 func (item *product) SetName(name string){
@@ -33,11 +38,11 @@ func (item *product) GetName() string{
 	return item.name
 }
 
-func (item *product) SetPrice(price float32){
+func (item *product) SetPrice(price float64){
 	item.price = price
 }
 
-func (item *product) GetPrice() float32{
+func (item *product) GetPrice() float64{
 	return item.price
 }
 
