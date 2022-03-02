@@ -3,29 +3,34 @@ package db
 import (
 	"database/sql"
 	"log"
+	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
+const DML_SELECT = "SELECT"
+const DML_UPDATE = "UPDATE"
+const DML_INSERT = "INSERT"
+const DML_DELETE = "DELETE"
+
 var db *sql.DB
 var err error
+var params map[string]string
 
-func Test(){
-	db, err = sql.Open("mysql", "root:penta0611@tcp(127.0.0.1:3306)/ecommerce")
+func Test(from string){
+	//log.Println("mysql.go [Test()] called from [" + from + "]")
+}
 
-	if err != nil {
-		log.Fatal(err)
+func SetOption(options map[string]string){
+	params = make(map[string]string)
+	for k, v := range options{
+		params[k] = v
 	}
-	defer db.Close()
 }
 
-func isConnected() bool{
-	return db != nil
-}
-
-func Connect(username *string, password *string, address *string, port *string, dbName *string){
+func Connect(){
 	driverName := "mysql"
-	dataSourceName := *username + ":" + *password + "@tcp(" + *address + ":" + *port + ")/" + *dbName
+	dataSourceName := params["username"] + ":" + params["password"] + "@tcp(" + params["address"] + ":" + params["port"] + ")/" + params["dbName"]
 
 	db, err = sql.Open(driverName, dataSourceName)
 
@@ -38,39 +43,87 @@ func Disconnect(){
 	db.Close()
 }
 
-func Select(query string) map[string]interface{}{
+func isConnected() bool{
+	return db != nil
+}
+
+func checkError(e error) {
+	if e != nil{
+		log.Fatal(e)
+	}
+}
+
+func validateQuery(query string, dml string) (result bool){
+	result = true
+
+	if !strings.HasPrefix(query, dml){
+		result = false
+	}
+
+	if strings.Contains(query, ";"){
+		result = false
+	}
+
+	return
+}
+
+func Get(query string) map[string]map[string]string{
 	if !isConnected() {
-		log.Fatal("Database disconnected.")
+		log.Fatal("Database not connected.")
 	}
 
+	if !validateQuery(query, DML_SELECT){
+		log.Fatal("Vaildate query failed")
+	}
+	
 	rows, err := db.Query(query)
-
-	if err != nil {
-		log.Fatal(err)
-	}
+	checkError(err)
 	defer rows.Close()
 
-	rawColumns, _ := rows.Columns()
-	result := make(map[string]interface{})
+	cols, err := rows.Columns()
+	checkError(err)
+
+	result := make(map[string]map[string]string)
 
 	for rows.Next(){
-		columns := make([]interface{}, len(rawColumns))
-		columnPointers := make([]interface{}, len(rawColumns))
-
+		columns := make([]string, len(cols))
+		columnPointers := make([]interface{}, len(cols))
+		data := make(map[string]string)
+		
 		for i, _ := range columns{
 			columnPointers[i] = &columns[i]
 		}
 
-		if err := rows.Scan(columnPointers...); err != nil{
-			log.Fatal(err)
+		rows.Scan(columnPointers...)
+
+		for i, colName := range cols{
+			data[colName] = columns[i]
 		}
 
-		for i, colName := range rawColumns{
-			v := columnPointers[i].(*interface{})
-			result[colName] = *v
-		}
+		id := data["id"]
+		delete(data, "id")
+
+		result[id] = make(map[string]string)
+		result[id] = data
 	}
 
 	return result
 }
 
+func Save(query string) int{
+	if !isConnected() {
+		log.Fatal("Database not connected.")
+	}
+
+	if !validateQuery(query, DML_INSERT) && !validateQuery(query, DML_UPDATE){
+		log.Fatal("Vaildate query failed")
+	}
+
+	result, err := db.Exec(query)
+	checkError(err)
+
+	rowCount, err := result.RowsAffected()
+	checkError(err)
+
+	return int(rowCount)
+}
