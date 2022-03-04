@@ -67,7 +67,7 @@ func validateQuery(query string, dml string) (result bool){
 	return
 }
 
-func Get(query string) map[string]map[string]string{
+func Get(query string, key string) map[string]map[string]string{
 	if !isConnected() {
 		log.Fatal("Database not connected.")
 	}
@@ -100,8 +100,8 @@ func Get(query string) map[string]map[string]string{
 			data[colName] = columns[i]
 		}
 
-		id := data["id"]
-		delete(data, "id")
+		id := data[key]
+		delete(data, key)
 
 		result[id] = make(map[string]string)
 		result[id] = data
