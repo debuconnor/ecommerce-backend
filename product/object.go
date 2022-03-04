@@ -1,5 +1,7 @@
 package product
 
+import "ecommerce/common"
+
 type product struct{
 	id			int
 	sku			string
@@ -9,7 +11,6 @@ type product struct{
 	color		string
 	createdAt	string
 	enabled		bool
-	category	[]int
 	image		string
 }
 
@@ -42,8 +43,8 @@ func (item *product) SetPrice(price float64){
 	item.price = price
 }
 
-func (item *product) GetPrice() float64{
-	return item.price
+func (item *product) GetPrice() string{
+	return common.FloatToString(item.price)
 }
 
 func (item *product) SetDescription(desciption string){
@@ -76,14 +77,6 @@ func (item *product) SetEnabled(enabled bool){
 
 func (item *product) GetEnabled() bool{
 	return item.enabled
-}
-
-func (item *product) SetCategory(category []int){
-	item.category = category
-}
-
-func (item *product) GetCategory() []int{
-	return item.category
 }
 
 func (item *product) SetImage(image string){
