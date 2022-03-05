@@ -12,6 +12,7 @@ const DML_SELECT = "SELECT"
 const DML_UPDATE = "UPDATE"
 const DML_INSERT = "INSERT"
 const DML_DELETE = "DELETE"
+const STORE_PROCEDURE = "CALL"
 
 var db *sql.DB
 var err error
@@ -56,7 +57,7 @@ func checkError(e error) {
 func validateQuery(query string, dml string) (result bool){
 	result = true
 
-	if !strings.HasPrefix(query, dml){
+	if !strings.HasPrefix(query, dml) && !strings.HasPrefix(query, STORE_PROCEDURE){
 		result = false
 	}
 
@@ -126,4 +127,19 @@ func Save(query string) int{
 	checkError(err)
 
 	return int(rowCount)
+}
+
+func Call(proc string, params []string, key string) (result map[string]map[string]string){
+	if !isConnected() {
+		log.Fatal("Database not connected.")
+	}
+
+	query := "CALL " + proc + "("
+	for _, v := range params{
+		query += "'" + v + "'"
+	}
+	query += ")"
+
+	result = Get(query, key)
+	return
 }
