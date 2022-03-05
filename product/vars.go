@@ -10,7 +10,16 @@ const (
 	CREATEDAT_ID	=	"6"
 )
 
-//Store Procedures
+//Store Procedures in the database
 const (
-	CreateProduct	= "CreateProduct"
+	CreateProduct	=	"CreateProduct"
+	GetProduct 		=	"GetProduct"
+	UpdateSku		=	"UpdateProductSku"
+	SetEnabled		=	"SetProductEnabled"
+	SetName			=	"SetProductName"
+	SetPrice		=	"SetProductPrice"
+	SetDescription	=	"SetProductDescription"
+	SetColor		=	"SetProductColor"
+	SetCreatedAt	=	"SetProductCreatedAt"
+	SetUpdatedAt	=	"SetProductUpdtedAt"
 )

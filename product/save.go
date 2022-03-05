@@ -3,14 +3,15 @@ package product
 import (
 	"ecommerce/common"
 	"ecommerce/common/db"
-	"log"
 )
 
 func getNewId() (id int){
 	//Call this method after opening DB
-	result := db.Get("SELECT * from product order by id desc limit 1")
+	const KEY = "id"
+
+	result := db.Get("SELECT * from product order by id desc limit 1", KEY)
 	
-	for k, _ := range result{
+	for k := range result{
 		id = common.StringToInt(k) + 1
 		break
 	}
@@ -22,11 +23,33 @@ func (item *product) SetItem(){
 	db.Connect()
 	defer db.Disconnect()
 
-	newId := common.IntToString(getNewId())
-	db.Save("INSERT into product (id, sku) values (" + newId + ", '" + item.GetSku() + "')")
-	db.Save("INSERT into product_string (product_id, attribute_id, `value`) values (2, " + newId + ", '" + item.GetName() + "')")
-	db.Save("INSERT into product_decimal (product_id, attribute_id, `value`) values (3, " + newId + ", '" + common.FloatToString(item.GetPrice()) + "')")
-	db.Save("INSERT into product_string (product_id, attribute_id, `value`) values (4, " + newId + ", '" + item.GetDescription() + "')")
-	db.Save("INSERT into product_string (product_id, attribute_id, `value`) values (5, " + newId + ", '" + item.GetColor() + "')")
-	
+	const KEY = ""
+	newId := "1"
+
+	createResult := db.Call(CreateProduct, []string{item.GetSku()}, KEY, db.DML_INSERT)
+	for k := range createResult{
+		newId = k
+		break
+	}
+	db.Call(SetName, []string{newId, item.GetName()}, KEY, db.DML_INSERT)
+	db.Call(SetPrice, []string{newId, common.FloatToString(item.GetPrice())}, KEY, db.DML_INSERT)
+	db.Call(SetDescription, []string{newId, item.GetDescription()}, KEY, db.DML_INSERT)
+	db.Call(SetColor, []string{newId, item.GetColor()}, KEY, db.DML_INSERT)
+	db.Call(SetEnabled, []string{newId, common.BoolToString(item.GetEnabled())}, KEY, db.DML_INSERT)
+	db.Call(SetCreatedAt, []string{newId, }, KEY, db.DML_INSERT)
+}
+
+func (item *product) UpdateItem(){
+	db.Connect()
+	defer db.Disconnect()
+
+	const KEY = ""
+	id := common.IntToString(item.GetId())
+
+	db.Call(SetName, []string{id, item.GetName()}, KEY, db.DML_UPDATE)
+	db.Call(SetPrice, []string{id, common.FloatToString(item.GetPrice())}, KEY, db.DML_UPDATE)
+	db.Call(SetDescription, []string{id, item.GetDescription()}, KEY, db.DML_UPDATE)
+	db.Call(SetColor, []string{id, item.GetColor()}, KEY, db.DML_UPDATE)
+	db.Call(SetEnabled, []string{id, common.BoolToString(item.GetEnabled())}, KEY, db.DML_UPDATE)
+	db.Call(SetUpdatedAt, []string{id}, KEY, db.DML_UPDATE)
 }
