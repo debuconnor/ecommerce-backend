@@ -12,3 +12,11 @@ func getAllAttributeId(objectName string) map[string]map[string]string{
 
 	return result
 }
+
+func CreateAttribute(attrCode string, attrName string){
+	db.Connect()
+	defer db.Disconnect()
+
+	const KEY = ""
+	db.Call(CreateNewAttribute, []string{attrCode, attrName}, KEY, db.DML_INSERT)
+}
