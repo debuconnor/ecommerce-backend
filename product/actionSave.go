@@ -19,7 +19,7 @@ func getNewId() (id int){
 	return
 }
 
-func (item *product) SetItem(){
+func (item *product) Create(){
 	db.Connect()
 	defer db.Disconnect()
 
@@ -39,7 +39,7 @@ func (item *product) SetItem(){
 	db.Call(SetCreatedAt, []string{newId, }, KEY, db.DML_INSERT)
 }
 
-func (item *product) UpdateItem(){
+func (item *product) Update(){
 	db.Connect()
 	defer db.Disconnect()
 
