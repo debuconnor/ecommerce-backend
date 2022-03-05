@@ -10,8 +10,8 @@ type product struct{
 	description	string
 	color		string
 	createdAt	string
+	updatedAt	string
 	enabled		bool
-	image		string
 }
 
 func New() product{
@@ -63,12 +63,12 @@ func (item *product) GetColor() string{
 	return item.color
 }
 
-func (item *product) SetCreatedAt(createdAt string){
-	item.createdAt = createdAt
-}
-
 func (item *product) GetCreatedAt() string{
 	return item.createdAt
+}
+
+func (item *product) GetUpdatedAt() string{
+	return item.updatedAt
 }
 
 func (item *product) SetEnabled(enabled bool){
@@ -77,12 +77,4 @@ func (item *product) SetEnabled(enabled bool){
 
 func (item *product) GetEnabled() bool{
 	return item.enabled
-}
-
-func (item *product) SetImage(image string){
-	item.image = image
-}
-
-func (item *product) GetImage() string{
-	return item.image
 }
