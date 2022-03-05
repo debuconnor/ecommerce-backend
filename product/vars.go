@@ -12,5 +12,17 @@ const (
 
 //Store Procedures
 const (
-	CreateProduct	= "CreateProduct"
+	CreateProduct		=	"CreateProduct"
+	GetProduct 			=	"GetProduct"
+	UpdateSku			=	"UpdateProductSku"
+	SetEnabled			=	"SetProductEnabled"
+	SetName				=	"SetProductName"
+	SetPrice			=	"SetProductPrice"
+	SetDescription		=	"SetProductDescription"
+	SetColor			=	"SetProductColor"
+	SetCreatedAt		=	"SetProductCreatedAt"
+	SetUpdatedAt		=	"SetProductUpdtedAt"
+	DeleteProduct		=	"DeleteProduct"
+
+	CreateNewAttribute 	=	"CreateProductAttribute"
 )
