@@ -12,7 +12,7 @@ func GetItem(id int) map[string]map[string]string{
 	const KEY = "id"
 
 	_id := common.IntToString(id)
-	result := db.Get("select * from product where id = " + _id, KEY)
+	result := db.Call(GetProduct, []string{_id}, KEY, db.DML_SELECT)
 
 	return result
 }

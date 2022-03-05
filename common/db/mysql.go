@@ -91,7 +91,7 @@ func Get(query string, key string) map[string]map[string]string{
 		columnPointers := make([]interface{}, len(cols))
 		data := make(map[string]string)
 		
-		for i, _ := range columns{
+		for i := range columns{
 			columnPointers[i] = &columns[i]
 		}
 
@@ -129,9 +129,17 @@ func Save(query string) int{
 	return int(rowCount)
 }
 
-func Call(proc string, params []string, key string) (result map[string]map[string]string){
+func Call(proc string, params []string, key string, dml string) (result map[string]map[string]string){
 	if !isConnected() {
 		log.Fatal("Database not connected.")
+	}
+
+	if dml == ""{
+		log.Fatal("DML not selected when CALL")
+	}
+
+	if key == ""{
+		key = "id"
 	}
 
 	query := "CALL " + proc + "("

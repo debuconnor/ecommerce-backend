@@ -10,7 +10,7 @@ const (
 	CREATEDAT_ID	=	"6"
 )
 
-//Store Procedures
+//Store Procedures in the database
 const (
 	CreateProduct		=	"CreateProduct"
 	GetProduct 			=	"GetProduct"
