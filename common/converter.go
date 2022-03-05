@@ -31,3 +31,7 @@ func BoolToInt(data bool) (result int){
 
     return
 }
+
+func BoolToString(data bool) (result string){
+    return IntToString(BoolToInt(data))
+}
