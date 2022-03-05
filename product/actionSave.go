@@ -20,7 +20,6 @@ func (item *product) Create(){
 	db.Call(SetName, []string{newId, item.GetName()}, KEY, db.DML_INSERT)
 	db.Call(SetPrice, []string{newId, common.FloatToString(item.GetPrice())}, KEY, db.DML_INSERT)
 	db.Call(SetDescription, []string{newId, item.GetDescription()}, KEY, db.DML_INSERT)
-	db.Call(SetColor, []string{newId, item.GetColor()}, KEY, db.DML_INSERT)
 	db.Call(SetEnabled, []string{newId, common.BoolToString(item.GetEnabled())}, KEY, db.DML_INSERT)
 	db.Call(SetCreatedAt, []string{newId, }, KEY, db.DML_INSERT)
 }
@@ -35,7 +34,6 @@ func (item *product) Update(){
 	db.Call(SetName, []string{id, item.GetName()}, KEY, db.DML_UPDATE)
 	db.Call(SetPrice, []string{id, common.FloatToString(item.GetPrice())}, KEY, db.DML_UPDATE)
 	db.Call(SetDescription, []string{id, item.GetDescription()}, KEY, db.DML_UPDATE)
-	db.Call(SetColor, []string{id, item.GetColor()}, KEY, db.DML_UPDATE)
 	db.Call(SetEnabled, []string{id, common.BoolToString(item.GetEnabled())}, KEY, db.DML_UPDATE)
 	db.Call(SetUpdatedAt, []string{id}, KEY, db.DML_UPDATE)
 }

@@ -6,7 +6,6 @@ type product struct{
 	name 		string
 	price 		float64
 	description	string
-	color		string
 	createdAt	string
 	updatedAt	string
 	enabled		bool
@@ -51,14 +50,6 @@ func (item *product) SetDescription(desciption string){
 
 func (item *product) GetDescription() string{
 	return item.description
-}
-
-func (item *product) SetColor(color string){
-	item.color = color
-}
-
-func (item *product) GetColor() string{
-	return item.color
 }
 
 func (item *product) GetCreatedAt() string{
