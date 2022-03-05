@@ -1,6 +1,8 @@
 package common
 
-import "strconv"
+import (
+	"strconv"
+)
 
 func ResultToString(data interface{}) string{
     return string(data.([]uint8))
@@ -18,4 +20,14 @@ func StringToInt(data string) int{
 
 func FloatToString(data float64) string{
     return strconv.FormatFloat(data, 'f', -1, 32)
+}
+
+func BoolToInt(data bool) (result int){
+    result = 0
+
+    if data{
+        result = 1
+    }
+
+    return
 }
