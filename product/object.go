@@ -1,7 +1,5 @@
 package product
 
-import "ecommerce/common"
-
 type product struct{
 	id			int
 	sku			string
@@ -43,8 +41,8 @@ func (item *product) SetPrice(price float64){
 	item.price = price
 }
 
-func (item *product) GetPrice() string{
-	return common.FloatToString(item.price)
+func (item *product) GetPrice() float64{
+	return item.price
 }
 
 func (item *product) SetDescription(desciption string){

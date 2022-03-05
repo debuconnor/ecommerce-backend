@@ -5,20 +5,6 @@ import (
 	"ecommerce/common/db"
 )
 
-func getNewId() (id int){
-	//Call this method after opening DB
-	const KEY = "id"
-
-	result := db.Get("SELECT * from product order by id desc limit 1", KEY)
-	
-	for k := range result{
-		id = common.StringToInt(k) + 1
-		break
-	}
-
-	return
-}
-
 func (item *product) Create(){
 	db.Connect()
 	defer db.Disconnect()
