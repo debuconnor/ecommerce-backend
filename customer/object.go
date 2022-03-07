@@ -11,11 +11,17 @@ type customer struct{
 	address1	string
 	address2	string
 	address3	string
+	createdAt	string
+	updatedAt	string
 }
 
 func New() customer{
 	item := new(customer)
 	return *item
+}
+
+func (user *customer) setId(id int) {
+	user.id = id
 }
 
 func (user *customer) GetId() int{
@@ -92,4 +98,20 @@ func (user *customer) SetAddress3(address string){
 
 func (user *customer) GetAddress3() string{
 	return user.address3
+}
+
+func (user *customer) setCreatedAt(createdAt string){
+	user.createdAt = createdAt
+}
+
+func (user *customer) GetCreatedAt() string{
+	return user.createdAt
+}
+
+func (user *customer) setUpdatedAt(updatedAt string){
+	user.updatedAt = updatedAt
+}
+
+func (user *customer) GetUpdatedAt() string{
+	return user.updatedAt
 }
