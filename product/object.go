@@ -16,6 +16,10 @@ func New() product{
 	return *item
 }
 
+func (item *product) setId(id int) {
+	item.id = id
+}
+
 func (item *product) GetId() int{
 	return item.id
 }
@@ -52,8 +56,16 @@ func (item *product) GetDescription() string{
 	return item.description
 }
 
+func (item *product) setCreatedAt(createdAt string) {
+	item.createdAt = createdAt
+}
+
 func (item *product) GetCreatedAt() string{
 	return item.createdAt
+}
+
+func (item *product) setUpdatedAt(updatedAt string){
+	item.updatedAt = updatedAt
 }
 
 func (item *product) GetUpdatedAt() string{

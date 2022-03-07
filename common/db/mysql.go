@@ -58,13 +58,21 @@ func validateQuery(query string, dml string) (result bool){
 	result = true
 
 	if !strings.HasPrefix(query, dml) && !strings.HasPrefix(query, STORE_PROCEDURE){
+		log.Println("Query refused, prefix is [" + dml + "]")
 		result = false
 	}
 
 	if strings.Contains(query, ";"){
+		log.Println("Query refused, it contains [;].")
 		result = false
 	}
 
+	if strings.Contains(query, "'"){
+		log.Println("Query refused, it contains ['].")
+		result = false
+	}
+
+	log.Fatal("Quit")
 	return
 }
 
@@ -73,9 +81,9 @@ func Get(query string, key string) map[string]map[string]string{
 		log.Fatal("Database not connected.")
 	}
 
-	if !validateQuery(query, DML_SELECT){
-		log.Fatal("Vaildate query failed")
-	}
+	// if !validateQuery(query, DML_SELECT){
+	// 	log.Fatal("Vaildate query failed")
+	// }
 	
 	rows, err := db.Query(query)
 	checkError(err)
@@ -143,10 +151,13 @@ func Call(proc string, params []string, key string, dml string) (result map[stri
 	}
 
 	query := "CALL " + proc + "("
-	for _, v := range params{
+	for i, v := range params{
+		if i > 0{
+			query += ", "
+		}
 		query += "'" + v + "'"
 	}
-	query += ")"
+	query += ", '" + dml + "')"
 
 	result = Get(query, key)
 	return

@@ -22,6 +22,11 @@ func FloatToString(data float64) string{
     return strconv.FormatFloat(data, 'f', -1, 32)
 }
 
+func StringToFloat(data string) float64{
+    num, _ := strconv.ParseFloat(data, 64)
+    return num
+}
+
 func BoolToInt(data bool) (result int){
     result = 0
 

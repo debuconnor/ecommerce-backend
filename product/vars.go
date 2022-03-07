@@ -10,7 +10,7 @@ const (
 	SetPrice			=	"SetProductPrice"
 	SetDescription		=	"SetProductDescription"
 	SetCreatedAt		=	"SetProductCreatedAt"
-	SetUpdatedAt		=	"SetProductUpdtedAt"
+	SetUpdatedAt		=	"SetProductUpdatedAt"
 	DeleteProduct		=	"DeleteProduct"
 
 	CreateNewAttribute 	=	"CreateProductAttribute"

@@ -3,7 +3,12 @@ package product
 import (
 	"ecommerce/common"
 	"ecommerce/common/db"
+	"log"
 )
+
+func preventError(){
+	log.Println("")
+}
 
 func (item *product) Create(){
 	db.Connect()
@@ -17,11 +22,13 @@ func (item *product) Create(){
 		newId = k
 		break
 	}
+	
 	db.Call(SetName, []string{newId, item.GetName()}, KEY, db.DML_INSERT)
 	db.Call(SetPrice, []string{newId, common.FloatToString(item.GetPrice())}, KEY, db.DML_INSERT)
 	db.Call(SetDescription, []string{newId, item.GetDescription()}, KEY, db.DML_INSERT)
 	db.Call(SetEnabled, []string{newId, common.BoolToString(item.GetEnabled())}, KEY, db.DML_INSERT)
-	db.Call(SetCreatedAt, []string{newId, }, KEY, db.DML_INSERT)
+	db.Call(SetCreatedAt, []string{newId}, KEY, db.DML_INSERT)
+	db.Call(SetUpdatedAt, []string{newId}, KEY, db.DML_INSERT)
 }
 
 func (item *product) Update(){
