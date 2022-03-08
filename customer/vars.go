@@ -2,7 +2,8 @@ package customer
 
 const (
 	CreateCustomer		=	"CreateCustomer"
-	GetCustomer			=	"GetCustomer"
+	GetCustomerById		=	"GetCustomerById"
+	GetCustomerByEmail	=	"GetCustomerByEmail"
 	UpdateEmail			=	"UpdateCustomerEmail"
 	SetName				=	"SetCustomerName" // Firstname, Middlename, Lastname
 	SetUsername			=	"SetCustomerUsername"
