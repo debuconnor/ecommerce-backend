@@ -40,3 +40,11 @@ func BoolToInt(data bool) (result int){
 func BoolToString(data bool) (result string){
     return IntToString(BoolToInt(data))
 }
+
+func StringToBool(data string) (result bool){
+    result = true
+    if data == "0" || data == "false"{
+        result = false
+    }
+    return
+}

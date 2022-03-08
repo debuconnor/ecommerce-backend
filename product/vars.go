@@ -3,7 +3,8 @@ package product
 //Store Procedures in the database
 const (
 	CreateProduct		=	"CreateProduct"
-	GetProduct 			=	"GetProduct"
+	GetProductById 		=	"GetProductById"
+	GetProductBySku		=	"GetProductBySku"
 	UpdateSku			=	"UpdateProductSku"
 	SetEnabled			=	"SetProductEnabled"
 	SetName				=	"SetProductName"
