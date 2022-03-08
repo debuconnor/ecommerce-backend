@@ -3,15 +3,10 @@ package product
 import (
 	"ecommerce/common"
 	"encoding/json"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
-
-func preventError2(){
-	log.Println("")
-}
 
 func GetProductHandler(w http.ResponseWriter, r *http.Request){
 	vars := mux.Vars(r)

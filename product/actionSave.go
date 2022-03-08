@@ -3,12 +3,7 @@ package product
 import (
 	"ecommerce/common"
 	"ecommerce/common/db"
-	"log"
 )
-
-func preventError(){
-	log.Println("")
-}
 
 func (item *product) Create(){
 	db.Connect()
