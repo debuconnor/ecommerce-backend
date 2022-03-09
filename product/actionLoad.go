@@ -20,6 +20,7 @@ func GetItemById(id int) product{
 	item.Name = result[_id]["name"]
 	item.Price = common.StringToFloat(result[_id]["price"])
 	item.Description = result[_id]["description"]
+	item.Enabled = common.StringToBool(result[_id]["enabled"])
 	item.CreatedAt = result[_id]["createdAt"]
 	item.UpdatedAt = result[_id]["updatedAt"]
 	
@@ -40,6 +41,7 @@ func GetItemBySku(sku string) product{
 	item.Name = result[sku]["name"]
 	item.Price = common.StringToFloat(result[sku]["price"])
 	item.Description = result[sku]["description"]
+	item.Enabled = common.StringToBool(result[sku]["enabled"])
 	item.CreatedAt = result[sku]["createdAt"]
 	item.UpdatedAt = result[sku]["updatedAt"]
 	
