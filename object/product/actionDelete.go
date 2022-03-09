@@ -1,15 +1,15 @@
 package product
 
 import (
-	"ecommerce/common"
-	"ecommerce/common/db"
+	"ecommerce/core/convert"
+	"ecommerce/core/db"
 )
 
 func (item *product) Delete(){
 	db.Connect()
 	defer db.Disconnect()
 
-	product_id := common.IntToString(item.GetId())
+	product_id := convert.IntToString(item.GetId())
 	db.Call(DeleteProduct, []string{product_id}, "", db.DML_DELETE)
 	item = nil
 }

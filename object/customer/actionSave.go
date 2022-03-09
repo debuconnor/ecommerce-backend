@@ -1,11 +1,11 @@
 package customer
 
 import (
-	"ecommerce/common"
-	"ecommerce/common/db"
+	"ecommerce/core/convert"
+	"ecommerce/core/db"
 )
 
-func (user *customer) Create(){
+func (user *customer) Create() {
 	db.Connect()
 	defer db.Disconnect()
 
@@ -13,7 +13,7 @@ func (user *customer) Create(){
 	newId := "1"
 
 	createResult := db.Call(CreateCustomer, []string{user.Email}, KEY, db.DML_INSERT)
-	for k := range createResult{
+	for k := range createResult {
 		newId = k
 		break
 	}
@@ -26,12 +26,12 @@ func (user *customer) Create(){
 	db.Call(SetUpdatedAt, []string{newId}, KEY, db.DML_INSERT)
 }
 
-func (user *customer) Update(){
+func (user *customer) Update() {
 	db.Connect()
 	defer db.Disconnect()
 
 	const KEY = ""
-	id := common.IntToString(user.GetId())
+	id := convert.IntToString(user.GetId())
 
 	db.Call(SetName, []string{id, user.Firstname, user.Middlename, user.Lastname}, KEY, db.DML_UPDATE)
 	db.Call(SetUsername, []string{id, user.Username}, KEY, db.DML_UPDATE)

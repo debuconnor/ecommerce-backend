@@ -1,22 +1,23 @@
 package customer
 
 import (
-	"ecommerce/common"
+	"ecommerce/core/convert"
+	"ecommerce/core/route"
 	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
-func GetCustomerHandler(w http.ResponseWriter, r *http.Request){
+func GetCustomerHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	key := common.StringToInt(vars["id"])
+	key := convert.StringToInt(vars["id"])
 	item := GetUserById(key)
 
 	json.NewEncoder(w).Encode(item)
 }
 
-func CreateCustomerHandler(w http.ResponseWriter, r  *http.Request){
+func CreateCustomerHandler(w http.ResponseWriter, r *http.Request) {
 	user := New()
 	user.Email = r.FormValue("email")
 	user.Firstname = r.FormValue("firstname")
@@ -33,7 +34,7 @@ func CreateCustomerHandler(w http.ResponseWriter, r  *http.Request){
 	user.Create()
 }
 
-func UpdateCustomerHandler(w http.ResponseWriter, r  *http.Request){
+func UpdateCustomerHandler(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	oldUser := GetUserByEmail(email)
 
@@ -53,17 +54,16 @@ func UpdateCustomerHandler(w http.ResponseWriter, r  *http.Request){
 	newUser.Update()
 }
 
-func DeleteCustomerHandler(w http.ResponseWriter, r *http.Request){
+func DeleteCustomerHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	key := common.StringToInt(vars["id"])
+	key := convert.StringToInt(vars["id"])
 	item := GetUserById(key)
 
 	item.Delete()
 }
 
-
-func AddHandlers(){
-	router := common.GetRouter()
+func AddHandlers() {
+	router := route.GetRouter()
 	router.HandleFunc("/customers/get/{id}", GetCustomerHandler).Methods("GET")
 	router.HandleFunc("/customers/create/", CreateCustomerHandler).Methods("POST")
 	router.HandleFunc("/customers/update/", UpdateCustomerHandler).Methods("PUT")

@@ -1,33 +1,34 @@
 package product
 
 import (
-	"ecommerce/common"
+	"ecommerce/core/convert"
+	"ecommerce/core/route"
 	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
-func GetProductHandler(w http.ResponseWriter, r *http.Request){
+func GetProductHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	key := common.StringToInt(vars["id"])
+	key := convert.StringToInt(vars["id"])
 	item := GetItemById(key)
 
 	json.NewEncoder(w).Encode(item)
 }
 
-func CreateProductHandler(w http.ResponseWriter, r  *http.Request){
+func CreateProductHandler(w http.ResponseWriter, r *http.Request) {
 	item := New()
 	item.Sku = r.FormValue("sku")
 	item.Name = r.FormValue("name")
-	item.Price = common.StringToFloat(r.FormValue("price"))
+	item.Price = convert.StringToFloat(r.FormValue("price"))
 	item.Description = r.FormValue("description")
-	item.Enabled = common.StringToBool(r.FormValue("enabled"))
+	item.Enabled = convert.StringToBool(r.FormValue("enabled"))
 
 	item.Create()
 }
 
-func UpdateProductHandler(w http.ResponseWriter, r  *http.Request){
+func UpdateProductHandler(w http.ResponseWriter, r *http.Request) {
 	sku := r.FormValue("sku")
 	oldItem := GetItemBySku(sku)
 
@@ -35,24 +36,23 @@ func UpdateProductHandler(w http.ResponseWriter, r  *http.Request){
 	newitem.setId(oldItem.GetId())
 	newitem.Sku = sku
 	newitem.Name = r.FormValue("name")
-	newitem.Price = common.StringToFloat(r.FormValue("price"))
+	newitem.Price = convert.StringToFloat(r.FormValue("price"))
 	newitem.Description = r.FormValue("description")
-	newitem.Enabled = common.StringToBool(r.FormValue("enabled"))
+	newitem.Enabled = convert.StringToBool(r.FormValue("enabled"))
 
 	newitem.Update()
 }
 
-func DeleteProductHandler(w http.ResponseWriter, r *http.Request){
+func DeleteProductHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	key := common.StringToInt(vars["id"])
+	key := convert.StringToInt(vars["id"])
 	item := GetItemById(key)
 
 	item.Delete()
 }
 
-
-func AddHandlers(){
-	router := common.GetRouter()
+func AddHandlers() {
+	router := route.GetRouter()
 	router.HandleFunc("/products/get/{id}", GetProductHandler).Methods("GET")
 	router.HandleFunc("/products/create/", CreateProductHandler).Methods("POST")
 	router.HandleFunc("/products/update/", UpdateProductHandler).Methods("PUT")

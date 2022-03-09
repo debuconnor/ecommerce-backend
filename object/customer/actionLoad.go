@@ -1,17 +1,17 @@
 package customer
 
 import (
-	"ecommerce/common"
-	"ecommerce/common/db"
+	"ecommerce/core/convert"
+	"ecommerce/core/db"
 )
 
-func GetUserById(id int) customer{
+func GetUserById(id int) customer {
 	db.Connect()
 	defer db.Disconnect()
 
 	const KEY = "id"
 
-	_id := common.IntToString(id)
+	_id := convert.IntToString(id)
 	result := db.Call(GetCustomerById, []string{_id}, KEY, db.DML_SELECT)
 
 	user := New()
@@ -31,7 +31,7 @@ func GetUserById(id int) customer{
 	return user
 }
 
-func GetUserByEmail(email string) customer{
+func GetUserByEmail(email string) customer {
 	db.Connect()
 	defer db.Disconnect()
 
@@ -40,7 +40,7 @@ func GetUserByEmail(email string) customer{
 	result := db.Call(GetCustomerByEmail, []string{email}, KEY, db.DML_SELECT)
 
 	user := New()
-	user.setId(common.StringToInt(result[email]["id"]))
+	user.setId(convert.StringToInt(result[email]["id"]))
 	user.Email = result[email]["email"]
 	user.Firstname = result[email]["firstname"]
 	user.Middlename = result[email]["middlename"]

@@ -1,6 +1,7 @@
-package common
+package route
 
 import (
+	"ecommerce/core/convert"
 	"log"
 	"net/http"
 
@@ -22,5 +23,5 @@ func GetRouter() (r *mux.Router){
 }
 
 func Listen(port int, r *mux.Router){
-	log.Fatal(http.ListenAndServe(":" + IntToString(port), r))
+	log.Fatal(http.ListenAndServe(":" + convert.IntToString(port), r))
 }
