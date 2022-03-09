@@ -1,5 +1,5 @@
 package relation
 
 const (
-	GetCustomerProducts 	=	"GetCustomerProducts"
+	GetCartItems 	=	"GetCustomerProducts"
 )

@@ -5,13 +5,13 @@ import (
 	"ecommerce/core/db"
 )
 
-func GetProductsByCategoryId(customerId int) (productIds []int) {
+func GetProductsByCustomerId(customerId int) (productIds []int) {
 	db.Connect()
 	defer db.Disconnect()
 
 	const KEY = "id"
 	_customerId := convert.IntToString(customerId)
-	result := db.Call(GetCustomerProducts, []string{_customerId}, KEY, db.DML_SELECT)
+	result := db.Call(GetCartItems, []string{_customerId}, KEY, db.DML_SELECT)
 
 	for k := range result {
 		productIds = append(productIds, convert.StringToInt(k))
