@@ -1,13 +1,14 @@
 package category
 
 type category struct{
-	id			int
-	Code		string	`json:"code"`
-	Name		string	`json:"name"`
-	Order		int		`json:"order"`
-	Enabled		bool	`json:"enabled"`
-	CreatedAt	string	`json:"createdAt"`
-	UpdatedAt	string	`json:"updatedAt"`
+	id				int
+	Code			string	`json:"code"`
+	Name			string	`json:"name"`
+	Order			int		`json:"order"`
+	ParentCategory	int		`json:"parentId"`
+	Enabled			bool	`json:"enabled"`
+	CreatedAt		string	`json:"createdAt"`
+	UpdatedAt		string	`json:"updatedAt"`
 }
 
 func New() category{

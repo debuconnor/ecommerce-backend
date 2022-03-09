@@ -12,7 +12,7 @@ func (item *category) Create(){
 	const KEY = ""
 	newId := "1"
 
-	createResult := db.Call(CreateCategory, []string{item.Code}, KEY, db.DML_INSERT)
+	createResult := db.Call(CreateCategory, []string{item.Code, common.IntToString(item.ParentCategory)}, KEY, db.DML_INSERT)
 	for k := range createResult{
 		newId = k
 		break
@@ -36,4 +36,15 @@ func (item *category) Update(){
 	db.Call(SetOrder, []string{id, common.IntToString(item.Order)}, KEY, db.DML_UPDATE)
 	db.Call(SetEnabled, []string{id, common.BoolToString(item.Enabled)}, KEY, db.DML_UPDATE)
 	db.Call(SetUpdatedAt, []string{id}, KEY, db.DML_UPDATE)
+}
+
+func (item *category) SetParentId(){
+	db.Connect()
+	defer	db.Disconnect()
+
+	const KEY = ""
+	id := common.IntToString(item.GetId())
+	catId := common.IntToString(item.ParentCategory)
+
+	db.Call(UpdateParentCategory, []string{id, catId}, KEY, db.DML_UPDATE)
 }

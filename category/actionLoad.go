@@ -19,6 +19,7 @@ func GetItemById(id int) category{
 	item.Code = result[_id]["code"]
 	item.Name = result[_id]["name"]
 	item.Order = common.StringToInt(result[_id]["order"])
+	item.ParentCategory = common.StringToInt((result[_id]["parent_id"]))
 	item.Enabled = common.StringToBool(result[_id]["enabled"])
 	item.CreatedAt = result[_id]["createdAt"]
 	item.UpdatedAt = result[_id]["updatedAt"]
@@ -39,6 +40,7 @@ func GetItemByCode(code string) category{
 	item.Code = code
 	item.Name = result[code]["name"]
 	item.Order = common.StringToInt(result[code]["order"])
+	item.ParentCategory = common.StringToInt((result[code]["parent_id"]))
 	item.Enabled = common.StringToBool(result[code]["enabled"])
 	item.CreatedAt = result[code]["createdAt"]
 	item.UpdatedAt = result[code]["updatedAt"]
