@@ -1,8 +1,8 @@
 package product
 
 import (
-	"ecommerce/core/convert"
-	"ecommerce/core/db"
+	"ecommerce-backend/core/convert"
+	"ecommerce-backend/core/db"
 )
 
 func (item *product) Delete(){

@@ -1,8 +1,8 @@
 package relation
 
 import (
-	"ecommerce/core/convert"
-	"ecommerce/core/db"
+	"ecommerce-backend/core/convert"
+	"ecommerce-backend/core/db"
 )
 
 func GetProductsByCategoryId(catId int) (productIds []int) {

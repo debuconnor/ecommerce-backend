@@ -1,8 +1,8 @@
 package customer
 
 import (
-	"ecommerce/core/convert"
-	"ecommerce/core/db"
+	"ecommerce-backend/core/convert"
+	"ecommerce-backend/core/db"
 )
 
 func (user *customer) Delete() {

@@ -1,8 +1,8 @@
 package product
 
 import (
-	"ecommerce/core/convert"
-	"ecommerce/core/route"
+	"ecommerce-backend/core/convert"
+	"ecommerce-backend/core/route"
 	"encoding/json"
 	"net/http"
 

@@ -1,9 +1,9 @@
 package relation
 
 import (
-	"ecommerce/core/route"
-	cat_pro "ecommerce/relation/CategoryProducts"
-	cust_pro "ecommerce/relation/CustomerProducts"
+	"ecommerce-backend/core/route"
+	cat_pro "ecommerce-backend/relation/CategoryProducts"
+	cust_pro "ecommerce-backend/relation/CustomerProducts"
 )
 
 func AddHandlers() {

@@ -1,8 +1,8 @@
 package relation
 
 import (
-	"ecommerce/core/convert"
-	"ecommerce/object/product"
+	"ecommerce-backend/core/convert"
+	"ecommerce-backend/object/product"
 	"encoding/json"
 	"net/http"
 
