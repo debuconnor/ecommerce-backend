@@ -2,7 +2,7 @@ package category
 
 const (
 	CreateCategory			=	"CreateCategory"
-	GetAllCategory			=	"GetAllCategory"
+	GetAllCategories		=	"GetAllCategories"
 	GetCategoryById			=	"GetCategoryById"
 	GetCategoryByCode		=	"GetCategoryByCode"
 	UpdateCode				=	"UpdateCategoryCode"

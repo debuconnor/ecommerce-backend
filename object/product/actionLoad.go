@@ -55,3 +55,27 @@ func GetItems(ids []int) (items []product) {
 
 	return
 }
+
+func GetAllItems() (items []product){
+	db.Connect()
+	defer db.Disconnect()
+
+	const KEY = "id"
+
+	result := db.Call(GetAllProducts, []string{}, KEY, db.DML_SELECT)
+
+	for _, v := range result{
+		item := New()
+		item.Sku = v["sku"]
+		item.Name = v["name"]
+		item.Price = convert.StringToFloat(v["price"])
+		item.Description = v["description"]
+		item.Enabled = convert.StringToBool(v["enabled"])
+		item.CreatedAt = v["createdAt"]
+		item.UpdatedAt = v["updatedAt"]
+
+		items = append(items, item)
+	}
+
+	return
+}

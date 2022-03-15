@@ -17,6 +17,12 @@ func GetProductHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(item)
 }
 
+func GetAllProductsHandler(w http.ResponseWriter, r *http.Request){
+	items := GetAllItems()
+
+	json.NewEncoder(w).Encode(items)
+}
+
 func CreateProductHandler(w http.ResponseWriter, r *http.Request) {
 	item := New()
 	item.Sku = r.FormValue("sku")
@@ -54,6 +60,7 @@ func DeleteProductHandler(w http.ResponseWriter, r *http.Request) {
 func AddHandlers() {
 	router := route.GetRouter()
 	router.HandleFunc("/products/get/{id}", GetProductHandler).Methods("GET")
+	router.HandleFunc("/products/get", GetAllProductsHandler).Methods("GET")
 	router.HandleFunc("/products/create/", CreateProductHandler).Methods("POST")
 	router.HandleFunc("/products/update/", UpdateProductHandler).Methods("PUT")
 	router.HandleFunc("/products/delete/{id}", DeleteProductHandler).Methods("DELETE")

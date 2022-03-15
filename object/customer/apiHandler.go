@@ -12,9 +12,15 @@ import (
 func GetCustomerHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := convert.StringToInt(vars["id"])
-	item := GetUserById(key)
+	user := GetUserById(key)
 
-	json.NewEncoder(w).Encode(item)
+	json.NewEncoder(w).Encode(user)
+}
+
+func GetAllCustomersHandler(w http.ResponseWriter, r *http.Request){
+	users := GetAllUsers()
+
+	json.NewEncoder(w).Encode(users)
 }
 
 func CreateCustomerHandler(w http.ResponseWriter, r *http.Request) {
@@ -57,14 +63,15 @@ func UpdateCustomerHandler(w http.ResponseWriter, r *http.Request) {
 func DeleteCustomerHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := convert.StringToInt(vars["id"])
-	item := GetUserById(key)
+	user := GetUserById(key)
 
-	item.Delete()
+	user.Delete()
 }
 
 func AddHandlers() {
 	router := route.GetRouter()
 	router.HandleFunc("/customers/get/{id}", GetCustomerHandler).Methods("GET")
+	router.HandleFunc("/customers/get", GetAllCustomersHandler).Methods("GET")
 	router.HandleFunc("/customers/create/", CreateCustomerHandler).Methods("POST")
 	router.HandleFunc("/customers/update/", UpdateCustomerHandler).Methods("PUT")
 	router.HandleFunc("/customers/delete/{id}", DeleteCustomerHandler).Methods("DELETE")

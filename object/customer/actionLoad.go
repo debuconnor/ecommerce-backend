@@ -55,3 +55,31 @@ func GetUserByEmail(email string) customer {
 
 	return user
 }
+
+func GetAllUsers() (users []customer){
+	db.Connect()
+	defer db.Disconnect()
+
+	const KEY = "id"
+
+	result := db.Call(GetAllCustomers, []string{}, KEY, db.DML_SELECT)
+
+	for _, v := range result{
+		user := New()
+		user.Email = v["email"]
+		user.Firstname = v["firstname"]
+		user.Middlename = v["middlename"]
+		user.Lastname = v["lastname"]
+		user.Username = v["username"]
+		user.Phone = v["phone"]
+		user.Address1 = v["address1"]
+		user.Address2 = v["address2"]
+		user.Address3 = v["address3"]
+		user.CreatedAt = v["createdAt"]
+		user.UpdatedAt = v["updatedAt"]
+
+		users = append(users, user)
+	}
+	
+	return
+}

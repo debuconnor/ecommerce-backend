@@ -62,7 +62,7 @@ func GetAllItems() (items []category){
 
 	const KEY = "id"
 
-	result := db.Call(GetAllCategory, []string{}, KEY, db.DML_SELECT)
+	result := db.Call(GetAllCategories, []string{}, KEY, db.DML_SELECT)
 
 	for _, v := range result{
 		item := New()

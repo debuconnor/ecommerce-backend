@@ -2,6 +2,7 @@ package customer
 
 const (
 	CreateCustomer		=	"CreateCustomer"
+	GetAllCustomers		=	"GetAllCustomers"
 	GetCustomerById		=	"GetCustomerById"
 	GetCustomerByEmail	=	"GetCustomerByEmail"
 	UpdateEmail			=	"UpdateCustomerEmail"
