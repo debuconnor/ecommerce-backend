@@ -1,15 +1,15 @@
 package category
 
 import (
-	"ecommerce/core/convert"
-	"ecommerce/core/route"
+	"ecommerce-backend/core/convert"
+	"ecommerce-backend/core/route"
 	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
-func GetProductHandler(w http.ResponseWriter, r *http.Request) {
+func GetCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := convert.StringToInt(vars["id"])
 	item := GetItemById(key)
@@ -17,7 +17,13 @@ func GetProductHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(item)
 }
 
-func CreateProductHandler(w http.ResponseWriter, r *http.Request) {
+func GetAllCategoriesHandler(w http.ResponseWriter, r *http.Request){
+	items := GetAllItems()
+
+	json.NewEncoder(w).Encode(items)	
+}
+
+func CreateCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	item := New()
 	item.Code = r.FormValue("code")
 	item.Name = r.FormValue("name")
@@ -27,7 +33,7 @@ func CreateProductHandler(w http.ResponseWriter, r *http.Request) {
 	item.Create()
 }
 
-func UpdateProductHandler(w http.ResponseWriter, r *http.Request) {
+func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	code := r.FormValue("code")
 	oldItem := GetItemByCode(code)
 
@@ -41,7 +47,7 @@ func UpdateProductHandler(w http.ResponseWriter, r *http.Request) {
 	newitem.Update()
 }
 
-func DeleteProductHandler(w http.ResponseWriter, r *http.Request) {
+func DeleteCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := convert.StringToInt(vars["id"])
 	item := GetItemById(key)
@@ -51,8 +57,9 @@ func DeleteProductHandler(w http.ResponseWriter, r *http.Request) {
 
 func AddHandlers() {
 	router := route.GetRouter()
-	router.HandleFunc("/categories/get/{id}", GetProductHandler).Methods("GET")
-	router.HandleFunc("/categories/create/", CreateProductHandler).Methods("POST")
-	router.HandleFunc("/categories/update/", UpdateProductHandler).Methods("PUT")
-	router.HandleFunc("/categories/delete/{id}", DeleteProductHandler).Methods("DELETE")
+	router.HandleFunc("/categories/get/{id}", GetCategoryHandler).Methods("GET")
+	router.HandleFunc("/categories/get", GetAllCategoriesHandler).Methods("GET")
+	router.HandleFunc("/categories/create/", CreateCategoryHandler).Methods("POST")
+	router.HandleFunc("/categories/update/", UpdateCategoryHandler).Methods("PUT")
+	router.HandleFunc("/categories/delete/{id}", DeleteCategoryHandler).Methods("DELETE")
 }

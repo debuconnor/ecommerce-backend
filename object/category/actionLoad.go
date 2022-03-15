@@ -1,8 +1,8 @@
 package category
 
 import (
-	"ecommerce/core/convert"
-	"ecommerce/core/db"
+	"ecommerce-backend/core/convert"
+	"ecommerce-backend/core/db"
 )
 
 func GetItemById(id int) category {
@@ -51,6 +51,30 @@ func GetItemByCode(code string) category {
 func GetItems(ids []int) (items []category) {
 	for _, id := range ids {
 		items = append(items, GetItemById(id))
+	}
+
+	return
+}
+
+func GetAllItems() (items []category){
+	db.Connect()
+	defer db.Disconnect()
+
+	const KEY = "id"
+
+	result := db.Call(GetAllCategory, []string{}, KEY, db.DML_SELECT)
+
+	for _, v := range result{
+		item := New()
+		item.Code = v["code"]
+		item.Name = v["name"]
+		item.Order = convert.StringToInt(v["order"])
+		item.ParentCategory = convert.StringToInt((v["parent_id"]))
+		item.Enabled = convert.StringToBool(v["enabled"])
+		item.CreatedAt = v["createdAt"]
+		item.UpdatedAt = v["updatedAt"]
+
+		items = append(items, item)
 	}
 
 	return
