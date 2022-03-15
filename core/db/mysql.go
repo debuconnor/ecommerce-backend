@@ -155,10 +155,10 @@ func Call(proc string, params []string, key string, dml string) (result map[stri
 		if i > 0{
 			query += ", "
 		}
-		query += "'" + v + "'"
+		query += "'" + v + "', "
 	}
-	query += ", '" + dml + "')"
-
+	query += "'" + dml + "')"
+	
 	result = Get(query, key)
 	return
 }
