@@ -2,13 +2,13 @@ package product
 
 type product struct{
 	id			int
-	Sku			string	`json:"sku"`
-	Name 		string	`json:"name"`
-	Price 		float64	`json:"price"`
-	Description	string	`json:"description"`
-	CreatedAt	string	`json:"createdAt"`
-	UpdatedAt	string	`json:"updatedAt"`
-	Enabled		bool	`json:"enabled"`
+	Sku			string	`json:"SKU"`
+	Name 		string	`json:"Name"`
+	Price 		float64	`json:"Price"`
+	Description	string	`json:"Description"`
+	CreatedAt	string	`json:"CreatedAt"`
+	UpdatedAt	string	`json:"UpdatedAt"`
+	Enabled		bool	`json:"Enabled"`
 }
 
 func New() product{

@@ -2,17 +2,17 @@ package customer
 
 type customer struct{
 	id			int
-	Email		string	`json:"email"`
-	Firstname	string	`json:"firstname"`
-	Middlename	string	`json:"middlename"`
-	Lastname	string	`json:"lastname"`
-	Username	string	`json:"username"`
-	Phone		string	`json:"phone"`
-	Address1	string	`json:"address1"`
-	Address2	string	`json:"address2"`
-	Address3	string	`json:"address3"`
-	CreatedAt	string	`json:"createdAt"`
-	UpdatedAt	string	`json:"updatedAt"`
+	Email		string	`json:"Email"`
+	Firstname	string	`json:"Firstname"`
+	Middlename	string	`json:"Middlename"`
+	Lastname	string	`json:"Lastname"`
+	Username	string	`json:"Username"`
+	Phone		string	`json:"Phone"`
+	Address1	string	`json:"Address1"`
+	Address2	string	`json:"Address2"`
+	Address3	string	`json:"Address3"`
+	CreatedAt	string	`json:"CreatedAt"`
+	UpdatedAt	string	`json:"UpdatedAt"`
 }
 
 func New() customer{
